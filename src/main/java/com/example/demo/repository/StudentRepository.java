@@ -1,6 +1,6 @@
-package bjit.academy.jpa_demo.repository;
+package com.example.demo.repository;
 
-import bjit.academy.jpa_demo.model.Student;
+import com.example.demo.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
     public Student findByEmail(String email);
+
 }
