@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Address;
+import com.example.demo.models.Grade;
 import com.example.demo.models.Student;
 import com.example.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +63,31 @@ public class StudentController {
             return "Student Not Found!";
         }
         return "Student Updated Successfully!";
+    }
+
+    @PutMapping("/student/updateAddress")
+    public Student updateStudentAddress(@RequestParam("id") Long id, @RequestBody Address newAddress){
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student ID is not available!"));
+        Address address = student.getAddress();
+        address.setStreet(newAddress.getStreet());
+        address.setCity(newAddress.getCity());
+        address.setZipCode(newAddress.getZipCode());
+        student.setAddress(address);
+        studentRepository.save(student);
+        return student;
+    }
+
+    @PutMapping("/student/updateGrade")
+    public Student updateStudentGrade(@RequestParam("id") Long id, @RequestBody Grade newGrade) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student ID is not available!"));
+        for (Grade grade : student.getGrades()) {
+            if (grade.getId().equals(newGrade.getId())) {
+                grade.setSubject(newGrade.getSubject());
+                grade.setGrade(newGrade.getGrade());
+                break;
+            }
+        }
+        studentRepository.save(student);
+        return student;
     }
 }

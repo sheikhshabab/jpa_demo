@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 public class Student {
@@ -23,6 +26,14 @@ public class Student {
 
     @NotNull(message = "Contact no can not be null")
     private String contactNo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    private List<Grade> grades = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -54,5 +65,21 @@ public class Student {
 
     public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Grade> getGrades() {
+        return this.grades;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
     }
 }
