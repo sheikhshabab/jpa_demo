@@ -32,7 +32,7 @@ public class Student {
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id")  // Foreign key column in the Grade table
     private List<Grade> grades = new ArrayList<>();
 
     public Long getId() {
@@ -81,5 +81,17 @@ public class Student {
 
     public void setGrades(List<Grade> grades) {
         this.grades = grades;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", contactNo='" + contactNo + '\'' +
+                ", address=" + address +
+                ", grades=" + grades +
+                '}';
     }
 }

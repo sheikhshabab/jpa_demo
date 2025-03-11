@@ -42,4 +42,13 @@ public class Grade {
     public void setGrade(String grade){
         this.grade = grade;
     }
+
+    @Override
+    public String toString() {
+        return "Grade{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", grade='" + grade + '\'' +
+                '}';
+    }
 }
