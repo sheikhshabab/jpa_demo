@@ -5,11 +5,10 @@ import com.example.demo.models.Grade;
 import com.example.demo.models.Student;
 import com.example.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,14 +18,8 @@ public class StudentController {
     StudentRepository studentRepository;
 
     @PostMapping("/student/save")
-    public ResponseEntity<?> createStudent(@RequestBody Student student) {
-        try {
-            return ResponseEntity.ok(studentRepository.save(student));
-        } catch (Exception e) {
-            List<String> errors = new ArrayList<>();
-            errors.add(e.getMessage());
-            return ResponseEntity.badRequest().body(errors);
-        }
+    public Student createStudent(@RequestBody Student student) {
+        return studentRepository.save(student);
     }
 
     @GetMapping("/student/findByEmail")
